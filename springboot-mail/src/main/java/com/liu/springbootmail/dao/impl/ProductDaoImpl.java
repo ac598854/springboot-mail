@@ -1,23 +1,17 @@
 package com.liu.springbootmail.dao.impl;
 
-import com.liu.springbootmail.constant.ProductCategory;
 import com.liu.springbootmail.dao.ProductDao;
+import com.liu.springbootmail.dto.ProductParams;
 import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 import com.liu.springbootmail.rowmapper.ProuctRowMapper;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -108,21 +102,21 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getProducts(ProductCategory category,String search) {
+    public List<Product> getProducts(ProductParams productParams) {
         String sql = "SELECT product_id,product_name, category, image_url, price, stock, " +
                 "description, created_date, last_modified_date " +
                 "FROM product WHERE 1=1";
 
         Map<String,Object> map = new HashMap<>();
 
-        if(category != null){
+        if(productParams.getCategory() != null){
             sql = sql + " AND category = :category";
-            map.put("category",category.name());
+            map.put("category",productParams.getCategory().name());
         }
 
-        if(search != null){
+        if(productParams.getSearch() != null){
             sql = sql+" AND productName LIKE :search";
-            map.put("productName", "%" + search + "%");
+            map.put("productName", "%" + productParams.getSearch() + "%");
         }
 
 

@@ -1,6 +1,7 @@
 package com.liu.springbootmail.dao;
 
 import com.liu.springbootmail.constant.ProductCategory;
+import com.liu.springbootmail.dto.ProductParams;
 import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 
@@ -16,5 +17,5 @@ public interface ProductDao {
 
   void deleteProduct(Integer productId);
 
-  List<Product> getProducts(ProductCategory category,String search);
+  List<Product> getProducts(ProductParams productParams);
 }
