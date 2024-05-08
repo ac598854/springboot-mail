@@ -1,36 +1,24 @@
-package com.liu.springbootmail.model;
+package com.liu.springbootmail.dto;
 
 import com.liu.springbootmail.constant.ProductCategory;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
-public class Product {
+public class ProductRequest {
 
-    private Integer productId;
+    @NotNull
     private String productName;
+    @NotNull
     private ProductCategory category;
+    @NotNull
     private String imageUrl;
+    @NotNull
     private Integer price;
+    @NotNull
     private Integer stock;
+
     private String description;
-    private Date createdDate;
-    private Date lastModifiedDate;
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 
     public String getDescription() {
         return description;
@@ -80,13 +68,7 @@ public class Product {
         this.productName = productName;
     }
 
-    public Integer getProductId() {
-        return productId;
-    }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
 
 
 }
