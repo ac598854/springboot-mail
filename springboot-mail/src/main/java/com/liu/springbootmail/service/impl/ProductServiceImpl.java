@@ -1,6 +1,7 @@
 package com.liu.springbootmail.service.impl;
 
 import com.liu.springbootmail.dao.ProductDao;
+import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 import com.liu.springbootmail.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer createProduct(Product productRequest) {
+    public Integer createProduct(ProductRequest productRequest) {
         return productDao.createProduct(productRequest);
     }
+
+    @Override
+    public void updateProduct(Integer productId, ProductRequest productRequest) {
+        productDao.updateProduct(productId,productRequest);
+    }
+
+
 }

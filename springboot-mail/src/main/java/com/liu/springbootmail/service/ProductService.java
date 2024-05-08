@@ -1,8 +1,10 @@
 package com.liu.springbootmail.service;
 
+import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 
 public interface ProductService {
     Product getProductId(Integer productId);
-    Integer createProduct(Product productRequest);
+    Integer createProduct(ProductRequest productRequest);
+    void updateProduct(Integer productId,ProductRequest productRequest);
 }

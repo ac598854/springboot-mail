@@ -1,10 +1,13 @@
 package com.liu.springbootmail.dao;
 
+import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 
 public interface ProductDao {
 
-  abstract  Product getProductId(Integer productId);
+  Product getProductId(Integer productId);
 
-  Integer createProduct(Product productRequest);
+  Integer createProduct(ProductRequest productRequest);
+
+  void updateProduct(Integer productId,ProductRequest productRequest);
 }

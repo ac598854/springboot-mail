@@ -26,12 +26,32 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public  ResponseEntity<Product> createProduct(@RequestBody @Valid Product productRequest){
+    public  ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest){
        Integer productId = productService.createProduct(productRequest);
 
        Product product = productService.getProductId(productId);
 
        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    }
+
+    @PutMapping("/product/{productId}")
+    public ResponseEntity<Product> update(@PathVariable Integer productId,
+                                          @RequestBody @Valid ProductRequest productRequest){
+
+        Product product = productService.getProductId(productId);
+
+        if(product == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+
+        productService.updateProduct(productId,productRequest);
+
+        Product updateProduct = productService.getProductId(productId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
+
+
     }
 
 
