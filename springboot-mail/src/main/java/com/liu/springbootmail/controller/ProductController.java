@@ -1,5 +1,6 @@
 package com.liu.springbootmail.controller;
 
+import com.liu.springbootmail.constant.ProductCategory;
 import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 import com.liu.springbootmail.service.ProductService;
@@ -18,8 +19,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/product")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> productList = productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search
+    ){
+
+        List<Product> productList = productService.getProducts(category,search);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 
