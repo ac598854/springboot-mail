@@ -108,7 +108,7 @@ public class ProductDaoImpl implements ProductDao {
                 "FROM product WHERE 1=1";
 
         Map<String,Object> map = new HashMap<>();
-
+        //查詢條件
         if(productParams.getCategory() != null){
             sql = sql + " AND category = :category";
             map.put("category",productParams.getCategory().name());
@@ -118,10 +118,13 @@ public class ProductDaoImpl implements ProductDao {
             sql = sql+" AND productName LIKE :search";
             map.put("productName", "%" + productParams.getSearch() + "%");
         }
-
+        //排序
         sql = sql + " ORDER BY " + productParams.getOrderBy() + " " + productParams.getSort();
 
-
+        //分頁
+        sql = sql + " LIMIT :limit OFFSET :offset";
+        map.put("limit",productParams.getLimit());
+        map.put("offset",productParams.getOffset());
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql,map,new ProuctRowMapper());
 

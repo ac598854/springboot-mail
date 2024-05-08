@@ -6,13 +6,17 @@ import com.liu.springbootmail.dto.ProductRequest;
 import com.liu.springbootmail.model.Product;
 import com.liu.springbootmail.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 public class ProductController {
 
@@ -21,16 +25,26 @@ public class ProductController {
 
     @GetMapping("/product")
     public ResponseEntity<List<Product>> getProducts(
+            //查詢條件
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search,
+
+            //排序
             @RequestParam(defaultValue = "created_date")String orderBy,
-            @RequestParam(defaultValue = "desc") String sort
+            @RequestParam(defaultValue = "desc") String sort,
+
+            //分頁
+            @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0")  @Min(0) Integer offset
+
     ){
         ProductParams productParams = new ProductParams();
         productParams.setCategory(category);
         productParams.setSearch(search);
         productParams.setOrderBy(orderBy);
         productParams.setSort(sort);
+        productParams.setLimit(limit);
+        productParams.setOffset(offset);
 
         List<Product> productList = productService.getProducts(productParams);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
